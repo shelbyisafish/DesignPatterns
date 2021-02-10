@@ -8,6 +8,10 @@ namespace DesignPatternsLib.Creational.Singleton
 {
     // Note: Not creating a static class because static
     //       classes cannot be instantiated.
+
+    /// <summary>
+    /// Goal: Controlled access to a sole instance of a class.
+    /// </summary>
     public class Singleton
     {
         /// <summary>

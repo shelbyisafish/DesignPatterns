@@ -31,6 +31,10 @@ namespace DesignPatternsConsole
                             break;
                         case DesignPattern.Singleton:
                             CreationalExamples.SingletonExample1();
+                            Console.WriteLine("\n\n");
+                            CreationalExamples.SingletonExample2();
+                            Console.WriteLine("\n\n");
+                            CreationalExamples.SingletonExample3();
                             break;
                         case DesignPattern.Adapter:
                             break;

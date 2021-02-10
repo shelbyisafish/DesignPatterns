@@ -17,7 +17,7 @@ namespace DesignPatternsConsole
         /// </summary>
         public static void SingletonExample1()
         {
-            Console.WriteLine("----------- Singleton -----------\n");
+            Console.WriteLine("----------- Singleton 1 -----------\n");
             // 'new' keyword is blocked. Cannot create more than one instance of Singleton.
             //Singleton s = new Singleton();
 
@@ -36,7 +36,31 @@ namespace DesignPatternsConsole
 
             Console.WriteLine($"Printing the value of singleton2: {singleton2.value1}");
 
-            Console.WriteLine("\n----------- /Singleton -----------");
+            Console.WriteLine("\n----------- /Singleton 1 -----------");
+        }
+
+        /// <summary>
+        /// You could also ensure a variable number of instances instead of 1.
+        /// </summary>
+        public static void SingletonExample2()
+        {
+            Console.WriteLine("----------- Singleton 2 -----------\n");
+
+
+
+            Console.WriteLine("\n----------- /Singleton 2 -----------");
+        }
+
+        /// <summary>
+        /// Subclassing a singleton.
+        /// </summary>
+        public static void SingletonExample3()
+        {
+            Console.WriteLine("----------- Singleton 3 -----------\n");
+
+
+
+            Console.WriteLine("\n----------- /Singleton 3 -----------");
         }
     }
 }
