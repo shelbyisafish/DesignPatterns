@@ -18,3 +18,8 @@ Creatioinal:
 Behavioral: TBD
 
 Structural: TBD
+
+---
+References:
+* Design Patterns reference website: https://refactoring.guru/
+* Design Patterns book: Design Patterns: Elements of Reusable Object-Oriented Software by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides
