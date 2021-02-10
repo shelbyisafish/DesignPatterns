@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatternsConsole
 {
-    public static class CreationalInstances
+    public static class CreationalExamples
     {
         /// <summary>
         /// In its simplest form, the Singleton pattern ensures that there will

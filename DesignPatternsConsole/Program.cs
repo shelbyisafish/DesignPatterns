@@ -30,7 +30,7 @@ namespace DesignPatternsConsole
                         case DesignPattern.Prototype:
                             break;
                         case DesignPattern.Singleton:
-                            CreationalInstances.SingletonExample1();
+                            CreationalExamples.SingletonExample1();
                             break;
                         case DesignPattern.Adapter:
                             break;
