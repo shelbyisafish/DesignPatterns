@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Creational\Singleton\Singleton.cs" />
+    <Compile Include="Creational\Singleton\SingletonWithPool.cs" />
+    <Compile Include="Creational\Singleton\SingletonWithRegistry.cs" />
     <Compile Include="PatternsEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
