@@ -24,6 +24,8 @@ namespace DesignPatternsConsole
                         case DesignPattern.AbstractFactory:
                             break;
                         case DesignPattern.Builder:
+                            CreationalExamples.BuilderExample1();
+                            Console.WriteLine("\n\n");
                             break;
                         case DesignPattern.FactoryMethod:
                             break;

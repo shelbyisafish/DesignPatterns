@@ -9,6 +9,8 @@ namespace DesignPatternsConsole
 {
     public static class CreationalExamples
     {
+        #region Singleton Examples
+
         /// <summary>
         /// In its simplest form, the Singleton pattern ensures that there will
         /// never be more than one instance of an object.
@@ -94,5 +96,16 @@ namespace DesignPatternsConsole
 
             Console.WriteLine("\n----------- /Singleton 3 -----------");
         }
+
+        #endregion
+
+        #region Builder Examples
+
+        public static void BuilderExample1()
+        {
+
+        }
+
+        #endregion
     }
 }

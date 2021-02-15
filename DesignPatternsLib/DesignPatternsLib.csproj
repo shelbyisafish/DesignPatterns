@@ -41,12 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Creational\Builder\BoardBuilder\BoardBuilder.cs" />
+    <Compile Include="Creational\Builder\BoardBuilder\BoardPiece.cs" />
+    <Compile Include="Creational\Builder\BoardBuilder\Director.cs" />
+    <Compile Include="Creational\Builder\BoardBuilder\Explanation.cs" />
+    <Compile Include="Creational\Builder\BoardBuilder\ExplanationBuilder.cs" />
+    <Compile Include="Creational\Builder\BoardBuilder\IBuilder.cs" />
+    <Compile Include="Creational\Builder\BoardBuilder\ResourceEnum.cs" />
+    <Compile Include="Creational\Builder\BoardBuilder\Board.cs" />
     <Compile Include="Creational\Singleton\Singleton.cs" />
     <Compile Include="Creational\Singleton\SingletonWithPool.cs" />
     <Compile Include="Creational\Singleton\SingletonWithRegistry.cs" />
     <Compile Include="PatternsEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Creational\Builder\BoardBuilder\README.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
