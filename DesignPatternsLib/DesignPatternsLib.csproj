@@ -58,5 +58,8 @@
   <ItemGroup>
     <Content Include="Creational\Builder\BoardBuilder\README.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Creational\Builder\ValidationBuilder\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

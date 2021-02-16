@@ -11,8 +11,9 @@ namespace DesignPatternsLib.Creational.Builder.BoardBuilder
         public ResourceEnum resourceType { get; set; }
         public BoardPiece[] adjacentPieces { get; set; }
 
-        public BoardPiece()
+        public BoardPiece(ResourceEnum resourceType)
         {
+            this.resourceType = resourceType;
             adjacentPieces = new BoardPiece[6];
         }
     }

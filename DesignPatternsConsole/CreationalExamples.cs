@@ -1,4 +1,5 @@
-﻿using DesignPatternsLib.Creational.Singleton;
+﻿using DesignPatternsLib.Creational.Builder.BoardBuilder;
+using DesignPatternsLib.Creational.Singleton;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,7 +104,53 @@ namespace DesignPatternsConsole
 
         public static void BuilderExample1()
         {
+            Console.WriteLine("----------- Builder 1 -----------\n");
 
+            // Create a normal board.
+            // This is the simplest form of the Builder pattern.
+            Console.WriteLine("Create a normal board. This is the simplest form of the Builder pattern.\n");
+            BoardBuilder boardBuilder = new BoardBuilder();
+            Director director = new Director(boardBuilder);
+
+            director.ConstructStandardBoard();
+            Board board = boardBuilder.GetBoard();
+
+            Console.WriteLine("Printing the pieces in the board:");
+            int index = 0;
+            foreach (BoardPiece piece in board.landMasses.First().pieces)   // Skip some steps. I already know there's 1 landmass.
+            {
+                Console.WriteLine($"\t[{index}]: {piece.resourceType}.");
+                index++;
+            }
+
+            // Create an explanation.
+            // In the Builder pattern, change the builder to build something else.
+            Console.WriteLine("\nCreate an explanation. In the Builder pattern, change the builder to build something else.\n");
+            ExplanationBuilder explanationBuilder = new ExplanationBuilder();
+            director.SetBuilder(explanationBuilder);
+
+            director.ConstructStandardExplanation();
+            Explanation explanation = explanationBuilder.GetExplanations();
+
+            Console.WriteLine("Printing the explanations:");
+            index = 0;
+            while (explanation.next != null)
+            {
+                Console.WriteLine($"\t[{index}]: {explanation.explanation}");
+                explanation = explanation.next;
+                index++;
+            }
+
+            Console.WriteLine("\n----------- /Builder 1 -----------");
+        }
+
+        public static void BuilderExample2()
+        {
+            Console.WriteLine("----------- Builder 2 -----------\n");
+
+
+
+            Console.WriteLine("\n----------- /Builder 2 -----------");
         }
 
         #endregion

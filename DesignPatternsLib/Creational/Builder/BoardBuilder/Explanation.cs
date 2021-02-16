@@ -18,6 +18,7 @@ namespace DesignPatternsLib.Creational.Builder.BoardBuilder
         public Explanation(string explanation)
         {
             this.explanation = explanation;
+            next = null;
         }
     }
 }

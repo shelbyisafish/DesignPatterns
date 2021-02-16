@@ -8,16 +8,25 @@ namespace DesignPatternsLib.Creational.Builder.BoardBuilder
 {
     public class Board
     {
-        public List<LandMass> landMasses { get; }
+        public List<LandMass> landMasses { get; private set; }
 
-        public Board(List<LandMass> landMasses)
+        public Board() { }
+
+        public void AddLandmass(LandMass landMass)
         {
-            this.landMasses = landMasses;
+            if (landMasses == null)
+                landMasses = new List<LandMass>();
+
+            landMasses.Add(landMass);
         }
     }
 
     public class LandMass
     {
+        /// <summary>
+        /// Providing the full list of pieces for a landmass,
+        /// even though the first piece should be the head.
+        /// </summary>
         public List<BoardPiece> pieces { get; }
 
         public LandMass(List<BoardPiece> pieces)

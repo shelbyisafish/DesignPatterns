@@ -14,8 +14,9 @@ namespace DesignPatternsLib.Creational.Builder.BoardBuilder
     public interface IBuilder
     {
         void ResetBuilder();
-        void SetConfiguration(int numPieces, int numLandmasses);
+        void SetConfiguration(int numPieces = 19);
         void BuildPieces();
         void CreateLandmass(int numPieces);
+        int RemainingPiecesCount();
     }
 }

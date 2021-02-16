@@ -12,19 +12,19 @@ namespace DesignPatternsLib.Creational.Builder.BoardBuilder
     public class BoardBuilder : IBuilder
     {
         private Board board;
-        private int totalNumPieces, totalNumLandmasses;
         private int[] numResources;
         private List<BoardPiece> pieces;
+        private static Random random = new Random();
 
-        public void SetConfiguration(int numPieces = 19, int numLandmasses = 1)
+        /// <summary>
+        /// Sets the board configuration.
+        /// </summary>
+        /// <param name="numPieces"></param>
+        /// <param name="numLandmasses"></param>
+        public void SetConfiguration(int numPieces = 19)
         {
             if (numPieces < 6)
                 throw new Exception("Cannot create a board with less than 6 pieces.");
-            if (numLandmasses < 1)
-                throw new Exception("Cannot create a board with less than 1 landmass.");
-
-            totalNumPieces = numPieces;
-            totalNumLandmasses = numLandmasses;
 
             int distribution = (numPieces-1) / 5;
             int leftover = (numPieces - 1) % 5;
@@ -36,20 +36,63 @@ namespace DesignPatternsLib.Creational.Builder.BoardBuilder
             numResources[3] = distribution;    // Wool
             numResources[4] = distribution;    // Ore
             numResources[5] = distribution;    // Brick
+            for (int i=1; i<=leftover; i++)
+            {
+                numResources[i]++;
+            }
 
+            if (pieces == null)
+                pieces = new List<BoardPiece>();
         }
 
+        /// <summary>
+        /// Create all board pieces according to the configuration.
+        /// </summary>
         public void BuildPieces()
         {
-            for(int i=0; i<totalNumPieces; i++)
+            for (int resourceType=0; resourceType<numResources.Length; resourceType++)
             {
-                pieces.Add(new BoardPiece());
+                for (int amount=0; amount<numResources[resourceType]; amount++)
+                {
+                    pieces.Add(new BoardPiece((ResourceEnum)resourceType));
+                }
             }
         }
 
+        public int RemainingPiecesCount()
+        {
+            return pieces.Count();
+        }
+
+        /// <summary>
+        /// Must BuildPieces() before calling CreateLandmass().
+        /// Adds landmass to board.
+        /// </summary>
+        /// <param name="numPieces"></param>
         public void CreateLandmass(int numPieces)
         {
-            throw new NotImplementedException();
+            if (numPieces > pieces.Count)
+            {
+                Console.WriteLine($"Cannot create a landmass with {numPieces}. Not enough pieces left: {pieces.Count()}. Returning...");
+                return;
+            }
+
+            if (board == null)
+                board = new Board();
+
+            List<BoardPiece> chosenPieces = new List<BoardPiece>();
+            for (int i=0; i<numPieces; i++)
+            {
+                int pieceRNG = random.Next(0, pieces.Count());
+
+                if (chosenPieces.Any())
+                    ConnectAdjacent(chosenPieces, pieces[pieceRNG]);
+                chosenPieces.Add(pieces[pieceRNG]);
+                pieces.RemoveAt(pieceRNG);
+            }
+
+            LandMass landMass = new LandMass(chosenPieces);
+            board.AddLandmass(landMass);
         }
 
         public Board GetBoard()
@@ -60,8 +103,17 @@ namespace DesignPatternsLib.Creational.Builder.BoardBuilder
         public void ResetBuilder()
         {
             board = null;
-            totalNumPieces = 0;
-            totalNumLandmasses = 0;
+            numResources = null;
+            if (pieces != null)
+                pieces.Clear();
+        }
+
+        // This is not a good calculation.
+        // Could come back and fix this later, but not necessary for the example.
+        private void ConnectAdjacent(List<BoardPiece> existingPieces, BoardPiece newPiece)
+        {
+            int locationRNG = random.Next(0, 6);
+            existingPieces.Last().adjacentPieces[locationRNG] = newPiece;
         }
     }
 }

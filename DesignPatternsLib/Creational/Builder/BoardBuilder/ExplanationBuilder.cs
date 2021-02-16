@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 namespace DesignPatternsLib.Creational.Builder.BoardBuilder
 {
     /// <summary>
+    /// Explanation Builder defines what each step should do to build an explanation.
+    /// 
     /// Notice, builders do not necessarily build a Board.
-    /// Builders can create whatever you need, as long as it also follows
+    /// Builders can create whatever object you need, as long as it can follow
     /// the steps outlined in IBuilder.
     /// </summary>
     public class ExplanationBuilder : IBuilder
@@ -16,11 +18,11 @@ namespace DesignPatternsLib.Creational.Builder.BoardBuilder
         private Explanation head;
         private Explanation current;
 
-        public void SetConfiguration(int numPieces, int numLandmasses)
+        public void SetConfiguration(int numPieces = 19)
         {
             Explanation explanation = new Explanation(
-                "Setting the config values.\n" +
-                $"numPieces: {numPieces}, numLandmasses: {numLandmasses}."
+                "Setting the config value.\n" +
+                $"\t\tnumPieces: {numPieces}."
                 );
             Append(explanation);
         }
@@ -29,9 +31,18 @@ namespace DesignPatternsLib.Creational.Builder.BoardBuilder
         {
             Explanation explanation = new Explanation(
                 "Building all pieces.\n" +
-                "The number of pieces built depends on the config value numPieces."
+                "\t\tThe number of pieces built depends on the config value numPieces."
                 );
             Append(explanation);
+        }
+
+        /// <summary>
+        /// No pieces to count here.
+        /// </summary>
+        /// <returns></returns>
+        public int RemainingPiecesCount()
+        {
+            throw new NotImplementedException();
         }
 
         public void CreateLandmass(int numPieces)

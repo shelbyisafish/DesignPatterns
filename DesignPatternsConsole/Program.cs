@@ -26,6 +26,8 @@ namespace DesignPatternsConsole
                         case DesignPattern.Builder:
                             CreationalExamples.BuilderExample1();
                             Console.WriteLine("\n\n");
+                            CreationalExamples.BuilderExample2();
+                            Console.WriteLine("\n\n");
                             break;
                         case DesignPattern.FactoryMethod:
                             break;
@@ -94,6 +96,7 @@ namespace DesignPatternsConsole
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("Exiting program...");
+                Console.ReadKey();
             }
         }
 
