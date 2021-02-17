@@ -49,6 +49,8 @@
     <Compile Include="Creational\Builder\BoardBuilder\IBuilder.cs" />
     <Compile Include="Creational\Builder\BoardBuilder\ResourceEnum.cs" />
     <Compile Include="Creational\Builder\BoardBuilder\Board.cs" />
+    <Compile Include="Creational\Builder\ValidationBuilder\IValidationBuilder.cs" />
+    <Compile Include="Creational\Builder\ValidationBuilder\ValidationDirector.cs" />
     <Compile Include="Creational\Singleton\Singleton.cs" />
     <Compile Include="Creational\Singleton\SingletonWithPool.cs" />
     <Compile Include="Creational\Singleton\SingletonWithRegistry.cs" />
@@ -57,9 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Creational\Builder\BoardBuilder\README.txt" />
+    <Content Include="Creational\Builder\ValidationBuilder\README.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Creational\Builder\ValidationBuilder\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

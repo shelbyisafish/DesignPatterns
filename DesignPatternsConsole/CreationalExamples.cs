@@ -1,5 +1,6 @@
 ﻿using DesignPatternsLib.Creational.Builder.BoardBuilder;
 using DesignPatternsLib.Creational.Singleton;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -148,9 +149,30 @@ namespace DesignPatternsConsole
         {
             Console.WriteLine("----------- Builder 2 -----------\n");
 
+            // Validator should validate similar incoming data. If data does not have enough similarity, use a different pattern.
+            // See README file for expected inputs.
+            List<string> inputs = new List<string>();
+
+            // Validate the first input.
+            Console.WriteLine("Getting the first input...\n");
 
 
             Console.WriteLine("\n----------- /Builder 2 -----------");
+        }
+
+        private static List<string> CreateInputBuilderExample2()
+        {
+            List<string> examples = new List<string>();
+
+            JObject input1 = new JObject();
+            JObject input2 = new JObject();
+            JObject input3 = new JObject();
+
+            examples.Add(input1.ToString());
+            examples.Add(input2.ToString());
+            examples.Add(input3.ToString());
+            examples.OrderBy(x => x.GetHashCode()); // "shuffle"
+            return examples;
         }
 
         #endregion
