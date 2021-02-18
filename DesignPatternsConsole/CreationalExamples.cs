@@ -153,6 +153,9 @@ namespace DesignPatternsConsole
             // See README file for expected inputs.
             List<string> inputs = new List<string>();
 
+            Console.WriteLine("Creating the builder and director.\n");
+
+
             // Validate the first input.
             Console.WriteLine("Getting the first input...\n");
 
@@ -162,11 +165,95 @@ namespace DesignPatternsConsole
 
         private static List<string> CreateInputBuilderExample2()
         {
-            List<string> examples = new List<string>();
+            JObject[] users = new JObject[4];
+            JToken[] products = new JToken[2];
+            JToken[] services = new JToken[2];
 
-            JObject input1 = new JObject();
-            JObject input2 = new JObject();
-            JObject input3 = new JObject();
+            // input is ideal
+            dynamic user1 = new JObject();
+            user1.Name = "Jane Doe";
+            user1.Email = "JaneDoe@gmail.com";
+            user1.Phone = "(800) 123-4567";
+            users[0] = user1;
+
+            // input correct, but fix format
+            dynamic user2 = new JObject();
+            user2.Name = "Ms. Alice Brown";
+            user2.Email = "alicebrown@gmail.com";
+            user2.Phone = "8009876543";
+            users[1] = user2;
+
+            // input rejected, email
+            dynamic user3 = new JObject();
+            user3.Name = "Bob Smith";
+            user3.Email = "BobSmith@gmail.com@outlook.com";
+            user3.Phone = "(800) 456-7890";
+            users[2] = user3;
+
+            // input rejected, phone
+            dynamic user4 = new JObject();
+            user4.Name = "Carol Sheryl";
+            user4.Email = "Sharol@aol.com";
+            user4.Phone = "111111111";
+            users[3] = user4;
+
+
+            // input is ideal
+            dynamic product1 = new JObject();
+            product1.Name = "Dog Toy";
+            product1.Id = "1005";
+            product1.Price = "$8.56";
+            products[0] = product1;
+
+            // multiple products
+            JArray product2 = new JArray();
+
+            // input rejected, no Name
+            dynamic product2_1 = new JObject();
+            product2_1.Name = "";
+            product2_1.Id = "1007";
+            product2_1.Price = "$10.12";
+            // input rejected, no Id
+            dynamic product2_2 = new JObject();
+            product2_2.Name = "Cat Toy";
+            product2_2.Id = "";
+            product2_2.Price = "$9.74";
+
+            product2.Add(product2_1);
+            product2.Add(product2_2);
+            products[1] = product2;
+
+
+            // input is ideal
+            dynamic service1 = new JObject();
+            service1.Name = "Grooming";
+            service1.Id = "2001";
+            service1.Price = "$45.00";
+            service1.StartDate = "01/24/2021";
+            service1.EndDate = "01/24/2021";
+            services[0] = service1;
+
+            // multiple services
+            JArray service2 = new JArray();
+
+            // input rejected, no Name
+            dynamic service2_1 = new JObject();
+            service2_1.Name = "Boarding";
+            service2_1.Id = "2002";
+            service2_1.Price = "$76";
+            service2_1.StartDate = "3/7/2021";
+            service2_1.EndDate = "3/7/2021";
+            // input rejected, invalid date range
+            dynamic service2_2 = new JObject();
+            service2_2.Name = "Boarding";
+            service2_2.Id = "2002";
+            service2_2.Price = "$105";
+            service2_2.StartDate = "2/1/21";
+            service2_2.EndDate = "1/29/21";
+
+            service2.Add(service2_1);
+            service2.Add(service2_2);
+            services[1] = service2;
 
             examples.Add(input1.ToString());
             examples.Add(input2.ToString());

@@ -39,6 +39,7 @@ Services will include service info:
 	- Price
 	- Start Date
 	- End Date
+(There can be multiple services in one order.)
 
 Assume that an order will be either a product OR a service. (not both)
 

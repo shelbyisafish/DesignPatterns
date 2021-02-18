@@ -50,6 +50,9 @@
     <Compile Include="Creational\Builder\BoardBuilder\ResourceEnum.cs" />
     <Compile Include="Creational\Builder\BoardBuilder\Board.cs" />
     <Compile Include="Creational\Builder\ValidationBuilder\IValidationBuilder.cs" />
+    <Compile Include="Creational\Builder\ValidationBuilder\OrderValidationBuilder.cs" />
+    <Compile Include="Creational\Builder\ValidationBuilder\ProductValidationBuilder.cs" />
+    <Compile Include="Creational\Builder\ValidationBuilder\ServiceValidationBuilder.cs" />
     <Compile Include="Creational\Builder\ValidationBuilder\ValidationDirector.cs" />
     <Compile Include="Creational\Singleton\Singleton.cs" />
     <Compile Include="Creational\Singleton\SingletonWithPool.cs" />
