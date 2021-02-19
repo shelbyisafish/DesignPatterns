@@ -165,10 +165,13 @@ namespace DesignPatternsConsole
 
         private static List<string> CreateInputBuilderExample2()
         {
-            JObject[] users = new JObject[4];
+            JObject[] users = new JObject[6];
+            JObject[] pets = new JObject[6];
+            dynamic payment;
             JToken[] products = new JToken[2];
-            JToken[] services = new JToken[2];
+            JToken[] services = new JToken[4];
 
+            #region users
             // input is ideal
             dynamic user1 = new JObject();
             user1.Name = "Jane Doe";
@@ -183,21 +186,87 @@ namespace DesignPatternsConsole
             user2.Phone = "8009876543";
             users[1] = user2;
 
-            // input rejected, email
+            // input correct, but fix format
             dynamic user3 = new JObject();
-            user3.Name = "Bob Smith";
-            user3.Email = "BobSmith@gmail.com@outlook.com";
-            user3.Phone = "(800) 456-7890";
+            user3.Name = "Dan Johnson";
+            user3.Email = "danjohnson@gmail.com";
+            user3.Phone = "1234567";
             users[2] = user3;
 
-            // input rejected, phone
+            // input rejected, email
             dynamic user4 = new JObject();
-            user4.Name = "Carol Sheryl";
-            user4.Email = "Sharol@aol.com";
-            user4.Phone = "111111111";
+            user4.Name = "Bob Smith";
+            user4.Email = "BobSmith@gmail.com@outlook.com";
+            user4.Phone = "(800) 456-7890";
             users[3] = user4;
 
+            // input rejected, phone
+            dynamic user5 = new JObject();
+            user5.Name = "Carol Sheryl";
+            user5.Email = "Sharol@aol.com";
+            user5.Phone = "111111111";
+            users[4] = user5;
 
+            // input rejected, name
+            dynamic user6 = new JObject();
+            user6.Name = "";
+            user6.Email = "me@outlook.com";
+            user6.Phone = "789-1234";
+            users[5] = user6;
+            #endregion
+
+            #region pets
+
+            // input is ideal
+            dynamic pet1 = new JObject();
+            pet1.Name = "Spot";
+            pet1.Breed = "Greyhound";
+            pet1.Sex = "M";
+            pets[0] = pet1;
+
+            // input is correct, fix format
+            dynamic pet2 = new JObject();
+            pet2.Name = "Lucky";
+            pet2.Breed = "Golden Retreiver";
+            pet2.Sex = "Female";
+            pets[1] = pet2;
+
+            // input rejected, name
+            dynamic pet3 = new JObject();
+            pet3.Name = "";
+            pet3.Breed = "Golden Retreiver";
+            pet3.Sex = "Female";
+            pets[2] = pet3;
+
+            // input rejected, breed
+            dynamic pet4 = new JObject();
+            pet4.Name = "Moose";
+            pet4.Breed = "";
+            pet4.Sex = "F";
+            pets[3] = pet4;
+
+            // input rejected, sex
+            dynamic pet5 = new JObject();
+            pet5.Name = "Kira";
+            pet5.Breed = "Border Collie";
+            pet5.Sex = "";
+            pets[4] = pet5;
+
+            // input rejected, sex
+            dynamic pet6 = new JObject();
+            pet6.Name = "Luna";
+            pet6.Breed = "Husky";
+            pet6.Sex = "MFMFMFMFMF";
+            pets[5] = pet6;
+
+            #endregion
+
+            // Can only pretend validate this - everyone uses same payment.
+            payment = new JObject();
+            payment.CC = "1234 5678 9012 3456";
+            payment.BillingAddress = "123 Main St.";
+
+            #region products
             // input is ideal
             dynamic product1 = new JObject();
             product1.Name = "Dog Toy";
@@ -222,8 +291,9 @@ namespace DesignPatternsConsole
             product2.Add(product2_1);
             product2.Add(product2_2);
             products[1] = product2;
+            #endregion
 
-
+            #region services
             // input is ideal
             dynamic service1 = new JObject();
             service1.Name = "Grooming";
@@ -233,33 +303,66 @@ namespace DesignPatternsConsole
             service1.EndDate = "01/24/2021";
             services[0] = service1;
 
-            // multiple services
-            JArray service2 = new JArray();
-
-            // input rejected, no Name
-            dynamic service2_1 = new JObject();
-            service2_1.Name = "Boarding";
-            service2_1.Id = "2002";
-            service2_1.Price = "$76";
-            service2_1.StartDate = "3/7/2021";
-            service2_1.EndDate = "3/7/2021";
-            // input rejected, invalid date range
-            dynamic service2_2 = new JObject();
-            service2_2.Name = "Boarding";
-            service2_2.Id = "2002";
-            service2_2.Price = "$105";
-            service2_2.StartDate = "2/1/21";
-            service2_2.EndDate = "1/29/21";
-
-            service2.Add(service2_1);
-            service2.Add(service2_2);
+            // input is correct, fix format
+            dynamic service2 = new JObject();
+            service2.Name = "Grooming";
+            service2.Id = "2001";
+            service2.Price = "$45.00";
+            service2.StartDate = "2021-09-5";
+            service2.EndDate = "2021-09-5";
             services[1] = service2;
 
-            examples.Add(input1.ToString());
-            examples.Add(input2.ToString());
-            examples.Add(input3.ToString());
-            examples.OrderBy(x => x.GetHashCode()); // "shuffle"
-            return examples;
+            // input rejected, grooming should be one day
+            dynamic service3 = new JObject();
+            service3.Name = "Grooming";
+            service3.Id = "2001";
+            service3.Price = "$45.00";
+            service3.StartDate = "2021-7-5";
+            service3.EndDate = "2021-7-6";
+            services[2] = service3;
+
+            // multiple services
+            JArray service4 = new JArray();
+
+            // input rejected, no Name
+            dynamic service4_1 = new JObject();
+            service4_1.Name = "";
+            service4_1.Id = "2002";
+            service4_1.Price = "$76";
+            service4_1.StartDate = "3/7/2021";
+            service4_1.EndDate = "3/7/2021";
+            // input rejected, invalid date range
+            dynamic service4_2 = new JObject();
+            service4_2.Name = "Boarding";
+            service4_2.Id = "2002";
+            service4_2.Price = "$105";
+            service4_2.StartDate = "2/1/21";
+            service4_2.EndDate = "1/29/21";
+
+            service2.Add(service4_1);
+            service2.Add(service4_2);
+            services[3] = service4;
+            #endregion
+
+            
+            users.OrderBy(x => x.GetHashCode());    // "shuffle"
+            pets.OrderBy(x => x.GetHashCode());
+            IEnumerable<Tuple<JObject, JObject>> usersAndPets = users.Zip(pets, (user, pet) => new Tuple<JObject, JObject>(user, pet));
+            IOrderedEnumerable<Tuple<string, JToken>> productsAndServices = products.Select(x => new Tuple<string, JToken>("product", x))
+                .Concat(services.Select(x => new Tuple<string, JToken>("service", x)))
+                .OrderBy(x => x.GetHashCode());
+
+            IEnumerable<JObject> examples = usersAndPets.Zip(productsAndServices, (userAndPet, purchaseItem) => 
+                new JObject(
+                    new JProperty("user", userAndPet.Item1),
+                    new JProperty("pet", userAndPet.Item2),
+                    new JProperty("payment", payment),
+                    new JProperty(purchaseItem.Item1, purchaseItem.Item2)
+                    )
+            );
+
+            examples.OrderBy(x => x.GetHashCode());
+            return examples.Select(x => x.ToString()).ToList();
         }
 
         #endregion
