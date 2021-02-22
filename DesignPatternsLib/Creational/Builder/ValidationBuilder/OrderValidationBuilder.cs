@@ -11,6 +11,15 @@ namespace DesignPatternsLib.Creational.Builder.ValidationBuilder
     /// </summary>
     public abstract class OrderValidationBuilder : IValidationBuilder
     {
+        private Order order;
+        private bool success;
+        private string errorMessages;
+
+        public void SetOrder(Order order)
+        {
+            this.order = order;
+        }
+
         public void ValidatePayment()
         {
             throw new NotImplementedException();
@@ -28,17 +37,31 @@ namespace DesignPatternsLib.Creational.Builder.ValidationBuilder
 
         public void ResetBuilder()
         {
-            throw new NotImplementedException();
+            order = null;
+            success = false;
+            errorMessages = null;
         }
 
         /// <summary>
-        /// Subclasses must define ValidateProduct().
+        /// Did the validation succeed? Returns a tuple (success?, error messages).
         /// </summary>
-        public abstract void ValidateProduct();
+        /// <returns></returns>
+        public Tuple<bool, string> GetValidationResult()
+        {
+            if (order != null)
+                return new Tuple<bool, string>(success, errorMessages);
+            else
+                return new Tuple<bool, string>(false, "Validation has not started yet.");
+        }
 
         /// <summary>
-        /// Subclasses must define ValidateService().
+        /// Subclasses must define ValidateProducts().
         /// </summary>
-        public abstract void ValidateService();
+        public abstract void ValidateProducts();
+
+        /// <summary>
+        /// Subclasses must define ValidateServices().
+        /// </summary>
+        public abstract void ValidateServices();
     }
 }

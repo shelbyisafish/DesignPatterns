@@ -1,0 +1,37 @@
+﻿
+
+The Builder pattern might not be flexible enough for a validator.
+===
+
+The director steps are already set beforehand:
+    1. A validator reacts based on what's available to validate. This doesn't lend itself to predefined steps.
+    2. Because the pattern being used for the wrong purpose (validation) it looks weird to add code to choose which path to use.
+
+I especially do not like the resulting code:
+
+    OrderValidationBuilder builder;
+    if (order.Products != null)
+    {
+        builder = new ProductValidationBuilder();
+        validationDirector.SetBuilder(builder);
+        validationDirector.ValidateProductOrder();
+    }
+    else
+    {
+        builder = new ServiceValidationBuilder();
+        validationDirector.SetBuilder(builder);
+        validationDirector.ValidateServiceOrder();
+    }
+    (bool success, string errorMessages) = builder.GetValidationResult();
+
+
+
+When should Builder be used?
+===
+
+Builder is most suited for creating many objects that are slightly different. 
+The director should have multiple builders, and there should be multiple ways to construct an object with the same builder.
+
+Builder should be used to create a situation, not react to some conditions (like a validator).
+For example, the builder pattern might have been better for creating the example orders than validating them.
+

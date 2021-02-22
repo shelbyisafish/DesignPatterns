@@ -1,5 +1,7 @@
 ﻿using DesignPatternsLib.Creational.Builder.BoardBuilder;
+using DesignPatternsLib.Creational.Builder.ValidationBuilder;
 using DesignPatternsLib.Creational.Singleton;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -151,14 +153,59 @@ namespace DesignPatternsConsole
 
             // Validator should validate similar incoming data. If data does not have enough similarity, use a different pattern.
             // See README file for expected inputs.
-            List<string> inputs = new List<string>();
+            List<string> inputs = CreateInputBuilderExample2();
 
-            Console.WriteLine("Creating the builder and director.\n");
-
+            Console.WriteLine("Creating the director.\n");
+            ValidationDirector validationDirector = new ValidationDirector();
 
             // Validate the first input.
-            Console.WriteLine("Getting the first input...\n");
+            Console.WriteLine("Getting the first input...");
+            string firstOrder = inputs[0];
+            inputs.RemoveAt(0);
 
+            // Tip: Instead of fiddling with the newtonsoft json objects (JToken, JObject, JProperty, etc.), just create a model to pass to the deserializer.
+            //      To do this, all properties have to have get; and set;.
+            OrderWrapper orderToPrint = JsonConvert.DeserializeObject<OrderWrapper>(firstOrder);
+            Console.WriteLine(JsonConvert.SerializeObject(orderToPrint, Formatting.Indented));
+            Order order = orderToPrint?.Order;
+
+            // Choose and set builder.
+            Console.WriteLine("\nChoosing a builder...");
+            OrderValidationBuilder builder;
+            if (order.Products != null)
+            {
+                builder = new ProductValidationBuilder();
+                validationDirector.SetBuilder(builder);
+                Console.WriteLine("Product builder\n");
+            }
+            else
+            {
+                builder = new ServiceValidationBuilder();
+                validationDirector.SetBuilder(builder);
+                Console.WriteLine("Service builder\n");
+            }
+
+            // Validation
+            Console.WriteLine("Validating...");
+            validationDirector.ValidateOrder(order);
+            (bool success, string errorMessages) = builder.GetValidationResult();
+
+            if (success)
+            {
+                Console.WriteLine("Success!");
+            }    
+            else
+            {
+                Console.WriteLine("Validation Failed");
+                Console.WriteLine(errorMessages);
+            }
+
+            // Validate the rest of the inputs.
+            //Console.WriteLine("\n\nValidate the remaining orders.");
+            //foreach (string input in inputs)
+            //{
+            //    order = JObject.Parse(input);
+            //}
 
             Console.WriteLine("\n----------- /Builder 2 -----------");
         }
@@ -339,8 +386,8 @@ namespace DesignPatternsConsole
             service4_2.StartDate = "2/1/21";
             service4_2.EndDate = "1/29/21";
 
-            service2.Add(service4_1);
-            service2.Add(service4_2);
+            service4.Add(service4_1);
+            service4.Add(service4_2);
             services[3] = service4;
             #endregion
 
@@ -348,16 +395,20 @@ namespace DesignPatternsConsole
             users.OrderBy(x => x.GetHashCode());    // "shuffle"
             pets.OrderBy(x => x.GetHashCode());
             IEnumerable<Tuple<JObject, JObject>> usersAndPets = users.Zip(pets, (user, pet) => new Tuple<JObject, JObject>(user, pet));
-            IOrderedEnumerable<Tuple<string, JToken>> productsAndServices = products.Select(x => new Tuple<string, JToken>("product", x))
-                .Concat(services.Select(x => new Tuple<string, JToken>("service", x)))
+            IOrderedEnumerable<Tuple<string, JToken>> productsAndServices = products.Select(x => new Tuple<string, JToken>("products", x))
+                .Concat(services.Select(x => new Tuple<string, JToken>("services", x)))
                 .OrderBy(x => x.GetHashCode());
 
             IEnumerable<JObject> examples = usersAndPets.Zip(productsAndServices, (userAndPet, purchaseItem) => 
                 new JObject(
-                    new JProperty("user", userAndPet.Item1),
-                    new JProperty("pet", userAndPet.Item2),
-                    new JProperty("payment", payment),
-                    new JProperty(purchaseItem.Item1, purchaseItem.Item2)
+                    new JProperty("order",
+                        new JObject(
+                            new JProperty("pet", userAndPet.Item2),
+                            new JProperty("user", userAndPet.Item1),
+                            new JProperty("payment", payment),
+                            new JProperty(purchaseItem.Item1, purchaseItem.Item2)
+                            )
+                        )
                     )
             );
 

@@ -9,10 +9,11 @@ namespace DesignPatternsLib.Creational.Builder.ValidationBuilder
     public interface IValidationBuilder
     {
         void ResetBuilder();
+        void SetOrder(Order order);
         void ValidatePet();
         void ValidateUser();
         void ValidatePayment();
-        void ValidateProduct();
-        void ValidateService();
+        void ValidateProducts();
+        void ValidateServices();
     }
 }

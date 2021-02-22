@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace DesignPatternsLib.Creational.Builder.ValidationBuilder
     public class ValidationDirector
     {
         private IValidationBuilder builder;
+
+        public ValidationDirector() { }
 
         public ValidationDirector(IValidationBuilder builder)
         {
@@ -23,9 +26,15 @@ namespace DesignPatternsLib.Creational.Builder.ValidationBuilder
         // Maybe don't validate the builder type in the construction functions?
         // Should be the responsibility of the caller to provide the right builder?
 
-        public void ConstructSimpleValidator()
+        public void ValidateOrder(Order order)
         {
-
+            builder.ResetBuilder();
+            builder.SetOrder(order);
+            builder.ValidatePet();
+            builder.ValidateUser();
+            builder.ValidatePayment();
+            builder.ValidateProducts();
+            builder.ValidateServices();
         }
     }
 }

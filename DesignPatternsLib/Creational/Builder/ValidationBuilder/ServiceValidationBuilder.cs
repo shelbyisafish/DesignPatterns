@@ -11,12 +11,12 @@ namespace DesignPatternsLib.Creational.Builder.ValidationBuilder
         /// <summary>
         /// Not implemented - A service order will not have products.
         /// </summary>
-        public override void ValidateProduct()
+        public override void ValidateProducts()
         {
             throw new NotImplementedException();
         }
 
-        public override void ValidateService()
+        public override void ValidateServices()
         {
             throw new NotImplementedException();
         }
